@@ -48,7 +48,11 @@ export async function renderManuscript(
 
     const byline = params.penName || params.authorName;
     const surname = params.authorName.split(" ").pop() || params.authorName;
-    const titleKeyword = params.title.split(/\s+/).slice(0, 2).join(" ").toUpperCase();
+    const titleKeyword = params.title
+      .split(/\s+/)
+      .slice(0, 2)
+      .join(" ")
+      .toUpperCase();
     const approxWords = roundWordCount(params.wordCount);
 
     // Title page
@@ -72,7 +76,10 @@ export async function renderManuscript(
     doc.text(wordCountText, W - MARGIN - wcWidth, MARGIN, { lineBreak: false });
 
     const centerY = H / 3 + 36;
-    doc.text(params.title, MARGIN, centerY, { width: CONTENT_W, align: "center" });
+    doc.text(params.title, MARGIN, centerY, {
+      width: CONTENT_W,
+      align: "center",
+    });
     doc.text("", MARGIN, centerY + LINE_HEIGHT);
     doc.text(`by ${byline}`, MARGIN, centerY + LINE_HEIGHT * 2, {
       width: CONTENT_W,
@@ -89,8 +96,13 @@ export async function renderManuscript(
       pageNum++;
       lineCount = 0;
       const header = `${surname} / ${titleKeyword} / ${pageNum}`;
-      const headerWidth = doc.font(FONT).fontSize(FONT_SIZE).widthOfString(header);
-      doc.text(header, W - MARGIN - headerWidth, HEADER_Y, { lineBreak: false });
+      const headerWidth = doc
+        .font(FONT)
+        .fontSize(FONT_SIZE)
+        .widthOfString(header);
+      doc.text(header, W - MARGIN - headerWidth, HEADER_Y, {
+        lineBreak: false,
+      });
     }
 
     function currentY(): number {

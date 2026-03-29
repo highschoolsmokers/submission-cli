@@ -19,6 +19,7 @@ npx tsx submit.ts --author
 ```
 
 You'll be prompted for:
+
 - Name (legal name, used in contact block)
 - Pen name (optional, used as byline)
 - Address (one line, e.g. `123 Main St, City, ST 00000`)
@@ -29,6 +30,7 @@ You'll be prompted for:
 ## Usage
 
 **Submit a manuscript:**
+
 ```bash
 npx tsx submit.ts --file ~/story.txt --publication "Clarkesworld"
 npx tsx submit.ts --file ~/story.docx --publication "Lightspeed" --genre "science fiction"
@@ -37,21 +39,25 @@ npx tsx submit.ts --file ~/story.docx --publication "Lightspeed" --genre "scienc
 Supported formats: `.txt`, `.rtf`, `.docx`
 
 **Scan Scrivener compile folder** (`~/Documents/Scrivener/Compile/`):
+
 ```bash
 npx tsx submit.ts --scan
 ```
 
 **List queued submissions:**
+
 ```bash
 npx tsx submit.ts --list
 ```
 
 **Update author profile:**
+
 ```bash
 npx tsx submit.ts --author
 ```
 
 **All flags:**
+
 ```
 --file, -f <path>        Manuscript file
 --publication, -p <name> Target publication
@@ -65,6 +71,7 @@ npx tsx submit.ts --author
 ## Output
 
 For each submission, files are saved to `private/submissions/<id>/`:
+
 - `manuscript.pdf` — Shunn standard manuscript format
 - `cover-letter.txt` — Generated cover letter body (add salutation/signature before sending)
 
@@ -73,6 +80,7 @@ The queue is stored in `private/submissions/queue.json`.
 ## Manuscript formatting
 
 Output follows [William Shunn's standard manuscript format](https://www.shunn.net/format/story/):
+
 - US Letter, 1" margins, 12pt Courier, double-spaced
 - Title page: contact block top-left, word count top-right, title/byline centered at ⅓ down
 - Body pages: running header (`Surname / KEYWORD / #`), 0.5" paragraph indent

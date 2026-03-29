@@ -30,7 +30,10 @@ async function writeQueue(submissions: Submission[]): Promise<void> {
 
 function withLock<T>(fn: () => Promise<T>): Promise<T> {
   const next = writeLock.then(fn, fn);
-  writeLock = next.then(() => {}, () => {});
+  writeLock = next.then(
+    () => {},
+    () => {},
+  );
   return next;
 }
 
@@ -50,7 +53,10 @@ export async function getSubmission(
 }
 
 export async function createSubmission(
-  data: Pick<Submission, "title" | "wordCount" | "targetPublication" | "source"> &
+  data: Pick<
+    Submission,
+    "title" | "wordCount" | "targetPublication" | "source"
+  > &
     Partial<Pick<Submission, "genre">>,
 ): Promise<Submission> {
   return withLock(async () => {

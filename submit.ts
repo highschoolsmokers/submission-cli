@@ -16,7 +16,11 @@ import path from "node:path";
 import os from "node:os";
 import readline from "node:readline";
 
-import { extractText, extractTitle, countWords } from "./lib/manuscriptParser.js";
+import {
+  extractText,
+  extractTitle,
+  countWords,
+} from "./lib/manuscriptParser.js";
 import { renderManuscript } from "./lib/shunnFormatter.js";
 import { generateCoverLetter } from "./lib/coverLetterGenerator.js";
 import {
@@ -28,7 +32,12 @@ import {
   updateSubmission,
 } from "./lib/queue.js";
 
-const COMPILE_DIR = path.join(os.homedir(), "Documents", "Scrivener", "Compile");
+const COMPILE_DIR = path.join(
+  os.homedir(),
+  "Documents",
+  "Scrivener",
+  "Compile",
+);
 
 const { values } = parseArgs({
   options: {
@@ -49,17 +58,35 @@ function prompt(rl: readline.Interface, question: string): Promise<string> {
 
 async function configureAuthor() {
   const existing = await getAuthorConfig();
-  const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  });
 
   console.log("\nAuthor Configuration (press Enter to keep existing value)\n");
 
-  const name = (await prompt(rl, `Name [${existing?.name ?? ""}]: `)).trim() || existing?.name || "";
-  const penName = (await prompt(rl, `Pen name [${existing?.penName ?? "none"}]: `)).trim() || existing?.penName;
-  const address = (await prompt(rl, `Address [${existing?.address ?? ""}]: `)).trim() || existing?.address || "";
-  const email = (await prompt(rl, `Email [${existing?.email ?? ""}]: `)).trim() || existing?.email || "";
-  const phone = (await prompt(rl, `Phone [${existing?.phone ?? "none"}]: `)).trim() || existing?.phone;
+  const name =
+    (await prompt(rl, `Name [${existing?.name ?? ""}]: `)).trim() ||
+    existing?.name ||
+    "";
+  const penName =
+    (await prompt(rl, `Pen name [${existing?.penName ?? "none"}]: `)).trim() ||
+    existing?.penName;
+  const address =
+    (await prompt(rl, `Address [${existing?.address ?? ""}]: `)).trim() ||
+    existing?.address ||
+    "";
+  const email =
+    (await prompt(rl, `Email [${existing?.email ?? ""}]: `)).trim() ||
+    existing?.email ||
+    "";
+  const phone =
+    (await prompt(rl, `Phone [${existing?.phone ?? "none"}]: `)).trim() ||
+    existing?.phone;
   console.log(`Current bio: ${existing?.bio ?? "(none)"}`);
-  const bioInput = (await prompt(rl, "Bio (one line, or Enter to keep): ")).trim();
+  const bioInput = (
+    await prompt(rl, "Bio (one line, or Enter to keep): ")
+  ).trim();
   const bio = bioInput || existing?.bio || "";
 
   rl.close();
@@ -96,7 +123,9 @@ Submission Pipeline CLI
       const files = entries.filter(
         (e) =>
           e.isFile() &&
-          [".txt", ".rtf", ".docx"].includes(path.extname(e.name).toLowerCase()),
+          [".txt", ".rtf", ".docx"].includes(
+            path.extname(e.name).toLowerCase(),
+          ),
       );
       if (files.length === 0) {
         console.log("No .txt/.rtf/.docx files found.");
@@ -192,7 +221,10 @@ Submission Pipeline CLI
         targetPublication: values.publication,
         authorBio: author.bio,
       });
-      const letterPath = path.join(submissionDir(submission.id), "cover-letter.txt");
+      const letterPath = path.join(
+        submissionDir(submission.id),
+        "cover-letter.txt",
+      );
       await fs.writeFile(letterPath, letter);
       await updateSubmission(submission.id, {
         coverLetterGenerated: true,

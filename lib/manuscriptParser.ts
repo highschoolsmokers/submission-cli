@@ -24,7 +24,10 @@ export async function extractText(filePath: string): Promise<string> {
 }
 
 function stripRtf(rtf: string): string {
-  let text = rtf.replace(/\{\\(?:fonttbl|colortbl|stylesheet|info|pict)[^}]*\}/g, "");
+  let text = rtf.replace(
+    /\{\\(?:fonttbl|colortbl|stylesheet|info|pict)[^}]*\}/g,
+    "",
+  );
   text = text.replace(/\\[a-z]+\d*\s?/gi, "");
   text = text.replace(/\\'[0-9a-f]{2}/gi, "");
   text = text.replace(/[{}]/g, "");
