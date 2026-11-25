@@ -96,3 +96,7 @@ Requires `ANTHROPIC_API_KEY` in `.env`. Cover letter generation is skipped if th
 ## Data
 
 All data is local. Nothing is sent anywhere except the Claude API call for cover letter generation.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
